@@ -1,0 +1,22 @@
+/* Sfondo generale del sito */
+body {
+    background-color: #f9e7ca;
+    color: #333; 
+}
+
+/* Sfondo delle card */
+.card {
+    background-color: #FFF3D4; 
+    border: 1px solid #E0C097; 
+}
+
+.card {
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Contenitori con sfondo più chiaro */
+.container, .section {
+    background-color: #FCE8B9; 
+    padding: 20px;
+    border-radius: 10px;
+}

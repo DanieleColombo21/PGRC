@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registrati</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">PGRC</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html" id="login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="registrati.html" id="registrati">Registrati</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <h1 class="text-center mb-4">Ti devi registrare</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form id="form-registrazione">
+                    <div class="mb-3">
+                        <label for="nome" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="nome" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="cognome" class="form-label">Cognome</label>
+                        <input type="text" class="form-control" id="cognome" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" required />
+                    </div>
+                    <button type="submit" id="submit" class="btn btn-primary w-100">Registrati</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("submit").addEventListener("click", function (event) {
+            event.preventDefault();
+
+            // Ottieni i valori dal form
+            const nome = document.getElementById("nome").value.trim();
+            const cognome = document.getElementById("cognome").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value;
+
+            // Controlli di validazione
+            let validazione = true;
+            let errorMessage = "";
+
+            // Verifica che nome e cognome non siano vuoti
+            if (!nome || !cognome) {
+                validazione = false;
+                errorMessage = "Nome e cognome non possono essere vuoti!";
+            }
+
+            // Verifica che la password sia almeno di 8 caratteri
+            if (password.length < 8) {
+                validazione = false;
+                errorMessage = "La password deve contenere almeno 8 caratteri.";
+            }
+
+            // Controlla che la password abbia almeno una lettera maiuscola, una minuscola e un numero
+            if (!/[A-Z]/.test(password) || !/[a-z]/.test(password) || !/\d/.test(password)) {
+                validazione = false;
+                errorMessage = "La password deve contenere almeno una lettera maiuscola, una minuscola e un numero.";
+            }
+
+            if (!validazione) {
+                alert(errorMessage);
+                return;
+            }
+
+            // Controlla se l'email è già registrata
+            let utenti = JSON.parse(localStorage.getItem("utenti")) || [];
+            if (utenti.some(u => u.email === email)) {
+                alert("Email già registrata.");
+                return;
+            }
+
+            // Crea il nuovo utente
+            let nuovoUtente = {
+                nome: nome,
+                cognome: cognome,
+                email: email,
+                password: password
+            };
+
+            utenti.push(nuovoUtente);
+            localStorage.setItem("utenti", JSON.stringify(utenti));
+
+            alert("Registrazione avvenuta con successo!");
+
+            window.location.href = "login.html";
+        });
+    </script>
+</body>
+
+</html>

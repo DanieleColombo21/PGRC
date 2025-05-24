@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il tuo profilo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">PGRC</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="ricettario.html" id="mie-ricette">Le mie ricette</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html" id="profile">Il mio profilo</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container text-center mt-5">
+        <h1 id="welcome-message">Benvenuto, <span id="user-name">Utente</span></h1>
+        <p>Che cosa vuoi fare?</p>
+    </div>
+
+    <div class="d-flex justify-content-center mt-4">
+        <a class="btn btn-primary btn-lg mx-2" id="modifica-profilo" href="editProfile.html">Modifica profilo</a>
+        <button class="btn btn-primary btn-lg mx-2" id="cancella-profilo" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal">
+            Cancella profilo
+        </button>
+        <button class="btn btn-primary btn-lg mx-2" id="logout">Logout</button>
+    </div>
+
+    <!-- Modal di conferma cancellazione -->
+    <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteConfirmModalLabel">Conferma Eliminazione</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Sicuro di voler cancellare il profilo? Tutti i dati andranno persi.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-danger" id="confirmDelete">Sì</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script per recuperare l'utente loggato e aggiornare il contenuto della pagina -->
+    <script>
+        let utenteLoggato = JSON.parse(localStorage.getItem("utenteLoggato"));
+        if (utenteLoggato !== null) {
+            document.getElementById("user-name").textContent = utenteLoggato.nome;
+        }
+    </script>
+
+    <script src="profile.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
